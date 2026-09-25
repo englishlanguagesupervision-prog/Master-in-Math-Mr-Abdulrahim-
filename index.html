@@ -3,1165 +3,1108 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>امتحان الرياضيات - الصف الأول الإعدادي | أ/ عبدالرحيم العربي</title>
-  
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  
-  <!-- Google Fonts: Cairo & Amiri for Luxury Certificate -->
+  <title>منصة اختبارات الرياضيات - المستر في الرياضيات أ/ عبدالرحيم العربي</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,700&family=Cairo:wght@300;400;600;700;800;900&family=Reem+Kufi:wght@500;700&display=swap" rel="stylesheet">
-  
-  <!-- Canvas Confetti CDN -->
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Amiri:wght@700&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-  <!-- FontAwesome Icons for UI -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            brand: {
-              navy: '#1b1b4b',
-              navyDark: '#111133',
-              orange: '#f37021',
-              orangeLight: '#ff8a3d',
-              gold: '#d4af37',
-              goldLight: '#f6e27a',
-              softBg: '#f8fafc',
-            }
-          },
-          fontFamily: {
-            cairo: ['Cairo', 'sans-serif'],
-            amiri: ['Amiri', 'serif'],
-            kufi: ['Reem Kufi', 'sans-serif']
-          }
-        }
-      }
-    }
-  </script>
 
   <style>
-    body {
-      font-family: 'Cairo', sans-serif;
-      background-color: #f1f5f9;
-      color: #1e293b;
+    :root {
+      --primary: #121829;
+      --secondary: #1a2238;
+      --accent: #ff7b00;
+      --accent-gold: #f59e0b;
+      --accent-glow: rgba(255, 123, 0, 0.35);
+      --text-light: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-color: rgba(255, 255, 255, 0.1);
+      --success: #10b981;
+      --danger: #ef4444;
+      --card-bg: rgba(26, 34, 56, 0.85);
     }
 
-    /* Math fraction rendering */
-    .math-frac {
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Cairo', sans-serif;
+    }
+
+    body {
+      background: radial-gradient(circle at 50% 0%, #1c2646 0%, #0d1220 100%);
+      color: var(--text-light);
+      min-height: 100vh;
+      padding-bottom: 50px;
+    }
+
+    /* Header & Branding */
+    header {
+      background: linear-gradient(180deg, rgba(18, 24, 41, 0.95) 0%, rgba(18, 24, 41, 0.7) 100%);
+      border-bottom: 2px solid rgba(255, 123, 0, 0.3);
+      padding: 24px 20px;
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    .header-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .teacher-brand {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    /* Teacher Avatar Circle with Orange Ring */
+    .avatar-wrapper {
+      position: relative;
+      width: 105px;
+      height: 105px;
+      flex-shrink: 0;
+    }
+
+    .avatar-outer-ring {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      padding: 4px;
+      background: linear-gradient(135deg, #ff8c00, #ff4500, #ffb703);
+      box-shadow: 0 0 20px var(--accent-glow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .avatar-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      overflow: hidden;
+      background: #0d1220;
+      border: 3px solid #121829;
+    }
+
+    .avatar-inner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+    }
+
+    .expert-badge {
+      position: absolute;
+      bottom: -6px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(90deg, #ff7b00, #ff5100);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 3px 12px;
+      border-radius: 20px;
+      white-space: nowrap;
+      border: 2px solid #121829;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.6);
+      letter-spacing: 0.5px;
+    }
+
+    .teacher-info h1 {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .teacher-info h1 span {
+      color: var(--accent);
+    }
+
+    .teacher-info p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-top: 4px;
+    }
+
+    .phone-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 123, 0, 0.12);
+      border: 1px solid rgba(255, 123, 0, 0.4);
+      color: #ffaa40;
+      padding: 4px 12px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      margin-top: 6px;
+      direction: ltr;
+    }
+
+    .exam-title-badge {
+      text-align: left;
+      background: rgba(255, 255, 255, 0.04);
+      padding: 12px 20px;
+      border-radius: 14px;
+      border: 1px solid var(--border-color);
+    }
+
+    .exam-title-badge h2 {
+      font-size: 1.15rem;
+      color: #38bdf8;
+    }
+
+    .exam-title-badge span {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* Main Container */
+    .container {
+      max-width: 950px;
+      margin: 30px auto;
+      padding: 0 16px;
+    }
+
+    /* Student Registration Card */
+    .student-card {
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 24px;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+      margin-bottom: 28px;
+    }
+
+    .student-card h3 {
+      font-size: 1.2rem;
+      color: var(--accent);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .input-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    .form-group input {
+      width: 100%;
+      background: #0d1220;
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 10px;
+      padding: 12px 14px;
+      color: #fff;
+      font-size: 1rem;
+      outline: none;
+      transition: all 0.3s;
+    }
+
+    .form-group input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 12px var(--accent-glow);
+    }
+
+    /* Section Headers */
+    .section-header {
+      background: linear-gradient(90deg, #1e3a8a, #0369a1);
+      padding: 14px 22px;
+      border-radius: 14px;
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-right: 5px solid var(--accent);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+    }
+
+    .section-header span.points {
+      background: rgba(0,0,0,0.3);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      color: #fde047;
+    }
+
+    /* Question Cards */
+    .q-card {
+      background: var(--card-bg);
+      border-radius: 18px;
+      padding: 22px;
+      margin-bottom: 20px;
+      border: 1px solid var(--border-color);
+      transition: all 0.25s ease;
+    }
+
+    .q-card:hover {
+      border-color: rgba(255, 123, 0, 0.4);
+      transform: translateY(-2px);
+    }
+
+    .q-text {
+      font-size: 1.08rem;
+      font-weight: 700;
+      line-height: 1.8;
+      margin-bottom: 16px;
+      color: #f1f5f9;
+    }
+
+    .math-symbol {
+      font-family: 'Amiri', serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #facc15;
+      padding: 0 4px;
+    }
+
+    .fraction {
       display: inline-flex;
       flex-direction: column;
       vertical-align: middle;
       text-align: center;
-      padding: 0 4px;
-      font-weight: 700;
+      padding: 0 5px;
+      font-size: 0.95em;
     }
-    .math-frac-num {
-      border-bottom: 2px solid currentColor;
+
+    .fraction .top {
+      border-bottom: 2px solid #facc15;
       padding-bottom: 1px;
     }
-    .math-frac-den {
+
+    .fraction .bottom {
       padding-top: 1px;
     }
 
-    /* Certificate Luxury Borders */
-    .cert-border-outer {
-      background: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
-      padding: 10px;
-      border-radius: 18px;
-      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.3);
-    }
-    .cert-border-inner {
-      border: 3px double #d4af37;
-      background-color: #ffffff;
-      position: relative;
-      background-image: radial-gradient(#d4af37 0.6px, transparent 0.6px);
-      background-size: 16px 16px;
+    /* Options Grid (MCQ) */
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
     }
 
-    /* Watermark for certificate */
-    .cert-watermark {
+    .option-btn {
+      background: #0f172a;
+      border: 2px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 12px 16px;
+      text-align: center;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #e2e8f0;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .option-btn span.lbl {
+      color: var(--accent);
+      font-weight: 800;
+    }
+
+    .option-btn:hover {
+      border-color: var(--accent);
+      background: rgba(255, 123, 0, 0.08);
+    }
+
+    .option-btn.selected {
+      background: linear-gradient(135deg, rgba(255,123,0,0.25), rgba(255,123,0,0.1));
+      border-color: var(--accent);
+      box-shadow: 0 0 14px var(--accent-glow);
+    }
+
+    .option-btn.correct {
+      background: rgba(16, 185, 129, 0.25) !important;
+      border-color: var(--success) !important;
+      color: #34d399 !important;
+    }
+
+    .option-btn.wrong {
+      background: rgba(239, 68, 68, 0.25) !important;
+      border-color: var(--danger) !important;
+      color: #f87171 !important;
+    }
+
+    /* Written / Essay Inputs */
+    .essay-box {
+      margin-top: 12px;
+    }
+
+    .essay-box textarea, .essay-box input[type="text"] {
+      width: 100%;
+      background: #0b0f19;
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 10px;
+      padding: 12px;
+      color: #fff;
+      font-size: 1rem;
+      outline: none;
+    }
+
+    .essay-box textarea:focus, .essay-box input[type="text"]:focus {
+      border-color: var(--accent);
+    }
+
+    /* Venn Diagram Canvas SVG */
+    .venn-wrapper {
+      text-align: center;
+      margin: 18px 0;
+      background: #0c1322;
+      border-radius: 16px;
+      padding: 16px;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .venn-svg {
+      max-width: 480px;
+      width: 100%;
+      height: auto;
+    }
+
+    /* Action Buttons */
+    .btn-submit {
+      width: 100%;
+      background: linear-gradient(90deg, #ff7b00, #ea580c);
+      color: #fff;
+      border: none;
+      padding: 18px;
+      border-radius: 14px;
+      font-size: 1.3rem;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 10px 25px var(--accent-glow);
+      transition: all 0.3s;
+      margin-top: 25px;
+    }
+
+    .btn-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 32px rgba(255, 123, 0, 0.55);
+    }
+
+    /* Result Modal / Section */
+    #results-area {
+      display: none;
+      margin-top: 40px;
+      animation: fadeIn 0.6s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .score-summary-card {
+      background: linear-gradient(135deg, #1e293b, #0f172a);
+      border: 2px solid var(--accent);
+      border-radius: 20px;
+      padding: 30px;
+      text-align: center;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+      margin-bottom: 30px;
+    }
+
+    .score-big {
+      font-size: 3.5rem;
+      font-weight: 900;
+      color: #fbbf24;
+      text-shadow: 0 0 25px rgba(251, 191, 36, 0.4);
+      margin: 10px 0;
+    }
+
+    /* Royal Certificate */
+    .certificate-container {
+      background: #0b0f19;
+      padding: 20px 0;
+    }
+
+    .certificate {
+      position: relative;
+      background: #fff;
+      color: #1e293b;
+      max-width: 850px;
+      margin: 0 auto;
+      padding: 40px;
+      border: 12px double #b45309;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.7);
+      background-image: radial-gradient(circle at 50% 50%, rgba(245, 158, 11, 0.05) 0%, rgba(255, 255, 255, 1) 70%);
+      border-radius: 4px;
+    }
+
+    .cert-corner {
       position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      opacity: 0.045;
-      pointer-events: none;
-      width: 480px;
+      width: 45px;
+      height: 45px;
+      border: 3px solid #b45309;
+    }
+    .cert-tl { top: 10px; left: 10px; border-right: none; border-bottom: none; }
+    .cert-tr { top: 10px; right: 10px; border-left: none; border-bottom: none; }
+    .cert-bl { bottom: 10px; left: 10px; border-right: none; border-top: none; }
+    .cert-br { bottom: 10px; right: 10px; border-left: none; border-top: none; }
+
+    .cert-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px dashed #cbd5e1;
+      padding-bottom: 20px;
+      margin-bottom: 24px;
+    }
+
+    .cert-title {
+      text-align: center;
+      flex-grow: 1;
+    }
+
+    .cert-title h2 {
+      font-family: 'Amiri', serif;
+      font-size: 2.2rem;
+      color: #92400e;
+      letter-spacing: 1px;
+    }
+
+    .cert-title p {
+      color: #64748b;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .cert-body {
+      text-align: center;
+      padding: 15px 0;
+      line-height: 2.2;
+    }
+
+    .cert-student-name {
+      font-size: 2rem;
+      font-weight: 900;
+      color: #1e3a8a;
+      border-bottom: 2px solid #b45309;
+      display: inline-block;
+      padding: 0 30px 4px 30px;
+      margin: 8px 0;
+    }
+
+    .cert-details {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #334155;
+    }
+
+    .cert-grade-tag {
+      display: inline-block;
+      background: #fef3c7;
+      color: #92400e;
+      border: 1px solid #f59e0b;
+      padding: 4px 18px;
+      border-radius: 30px;
+      font-weight: 800;
+      font-size: 1.25rem;
+    }
+
+    .cert-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-top: 35px;
+      padding-top: 20px;
+      border-top: 1px solid #e2e8f0;
+    }
+
+    .cert-teacher-box {
+      text-align: center;
+    }
+
+    .cert-stamp {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      border: 2px dashed #b45309;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform: rotate(-12deg);
+      color: #b45309;
+      font-weight: 800;
+      font-size: 0.85rem;
+      text-align: center;
+      line-height: 1.3;
+      padding: 6px;
+    }
+
+    .print-btn {
+      background: #1e293b;
+      color: #fff;
+      border: 1px solid #ff7b00;
+      padding: 12px 24px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 700;
+      margin-top: 20px;
+      transition: all 0.2s;
+    }
+    .print-btn:hover {
+      background: #ff7b00;
     }
 
     @media print {
       body * {
         visibility: hidden;
       }
-      #certificate-modal, #printable-certificate, #printable-certificate * {
+      #certificate-view, #certificate-view * {
         visibility: visible;
       }
-      #printable-certificate {
+      #certificate-view {
         position: absolute;
         left: 0;
         top: 0;
         width: 100%;
-        margin: 0;
+        background: transparent;
         padding: 0;
-        box-shadow: none;
-        border: none;
       }
-      .no-print {
-        display: none !important;
-      }
+      .print-btn { display: none; }
+    }
+
+    @media (max-width: 650px) {
+      .header-container { flex-direction: column; text-align: center; }
+      .teacher-brand { flex-direction: column; }
+      .exam-title-badge { text-align: center; width: 100%; }
+      .options-grid { grid-template-columns: 1fr; }
+      .cert-header, .cert-footer { flex-direction: column; gap: 15px; }
     }
   </style>
 </head>
-<body class="min-h-screen flex flex-col bg-slate-100">
+<body>
 
-  <header class="bg-gradient-to-r from-brand-navyDark via-brand-navy to-slate-900 text-white shadow-xl sticky top-0 z-40 border-b-4 border-brand-orange">
-    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-      <div class="flex items-center space-x-3 space-x-reverse">
-        <!-- SVG Logo Inspired by 'Al-Moster in Math' -->
-        <div class="w-12 h-12 bg-white rounded-full p-1 flex items-center justify-center shadow-lg border-2 border-brand-orange">
-          <svg viewBox="0 0 100 100" class="w-full h-full">
-            <circle cx="50" cy="50" r="46" fill="none" stroke="#1b1b4b" stroke-width="4"/>
-            <circle cx="50" cy="50" r="43" fill="none" stroke="#f37021" stroke-width="2"/>
-            <!-- Mortarboard cap -->
-            <path d="M50 16 L22 30 L50 44 L78 30 Z" fill="#1b1b4b"/>
-            <polygon points="50,44 70,34 70,52 50,62 30,52 30,34" fill="#1b1b4b" opacity="0.9"/>
-            <path d="M74 32 L74 54" stroke="#f37021" stroke-width="3" stroke-linecap="round"/>
-            <circle cx="74" cy="56" r="2.5" fill="#f37021"/>
-            <!-- Monogram M and R -->
-            <path d="M28 65 L28 42 L38 56 L48 42 L48 65" fill="none" stroke="#f37021" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M52 42 L66 42 Q74 42 74 50 Q74 57 66 57 L52 57 M62 57 L74 72" fill="none" stroke="#1b1b4b" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+  <!-- Header -->
+  <header>
+    <div class="header-container">
+      <div class="teacher-brand">
+        <!-- Frame Matching Reference Image -->
+        <div class="avatar-wrapper">
+          <div class="avatar-outer-ring">
+            <div class="avatar-inner">
+              <img id="main-teacher-img" src="./teacher.png.jpeg" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80'" alt="المعلم الخبير أ/ عبدالرحيم العربي">
+            </div>
+          </div>
+          <div class="expert-badge">المعلم الخبير</div>
         </div>
-        <div>
-          <h1 class="text-xl md:text-2xl font-black tracking-tight text-white flex items-center gap-2">
-            المستر في الرياضيات
-            <span class="text-xs bg-brand-orange text-white px-2 py-0.5 rounded-full font-bold">1 ع</span>
-          </h1>
-          <p class="text-xs md:text-sm text-amber-200 font-semibold">إعداد وتقديم: أ / عبدالرحيم العربي</p>
+
+        <div class="teacher-info">
+          <h1>المستر في <span>الرياضيات</span></h1>
+          <p>إعداد وتقديم: <strong>أ/ عبدالرحيم العربي</strong></p>
+          <div class="phone-tag">
+            <span>📞 01001607834</span>
+          </div>
         </div>
       </div>
 
-      <div class="flex items-center gap-3 text-xs md:text-sm">
-        <a href="tel:01001607834" class="hidden sm:flex items-center gap-2 bg-white/10 hover:bg-white/20 transition px-3 py-1.5 rounded-full text-slate-100 border border-white/20">
-          <i class="fa-solid fa-phone-volume text-brand-orange"></i>
-          <span dir="ltr">01001607834</span>
-        </a>
-        <div id="live-timer-container" class="hidden items-center gap-2 bg-brand-orange text-white font-bold px-3 py-1.5 rounded-full shadow">
-          <i class="fa-regular fa-clock animate-pulse"></i>
-          <span id="live-timer">00:00</span>
-        </div>
+      <div class="exam-title-badge">
+        <h2>اختبار مادة الرياضيات</h2>
+        <span>الصف الأول الإعدادي - الفصل الدراسي الأول</span><br>
+        <span style="color:#e2e8f0; font-weight:700;">العام الدراسي: 2025 / 2026 م</span>
       </div>
     </div>
   </header>
 
-  <main class="flex-grow max-w-5xl w-full mx-auto p-4 md:p-6">
+  <!-- Container -->
+  <div class="container">
     
-    <!-- ==================== VIEW 1: INTRO / STUDENT LOGIN ==================== -->
-    <section id="view-intro" class="bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-200">
-      <div class="bg-gradient-to-r from-brand-navy to-brand-navyDark p-8 text-white text-center relative overflow-hidden">
-        <div class="absolute -right-16 -top-16 w-56 h-56 bg-brand-orange/20 rounded-full blur-2xl"></div>
-        <div class="absolute -left-16 -bottom-16 w-56 h-56 bg-amber-400/20 rounded-full blur-2xl"></div>
-
-        <div class="relative z-10 max-w-xl mx-auto flex flex-col items-center">
-          <!-- Teacher Avatar and Badge -->
-          <div class="relative mb-4">
-            <div class="w-32 h-32 md:w-36 md:h-36 rounded-full border-4 border-brand-orange shadow-2xl overflow-hidden bg-slate-200 flex items-center justify-center ring-4 ring-white/20">
-              <!-- Provided portrait image -->
-              <img src="image_1a1bdf.jpg" alt="أ/ عبدالرحيم العربي" class="w-full h-full object-cover object-top" onerror="this.onerror=null; this.src='https://placehold.co/200x200/1b1b4b/white?text=أ.+عبدالرحيم+العربي'">
-            </div>
-            <span class="absolute bottom-0 right-1 bg-brand-orange text-white text-xs font-bold px-3 py-1 rounded-full shadow border-2 border-brand-navy">
-              المعلم الخبير
-            </span>
-          </div>
-
-          <h2 class="text-2xl md:text-3xl font-extrabold mb-1">امتحان مادة الرياضيات الشامل</h2>
-          <p class="text-amber-300 font-bold text-base md:text-lg mb-2">الصف الأول الإعدادي - الفصل الدراسي الأول</p>
-          <p class="text-slate-200 text-sm max-w-md">أهلاً بك يا بطل في المنصة التفاعلية لـ "المستر في الرياضيات" بإشراف أ/ عبدالرحيم العربي. استعد، وركّز جيداً في الحسابات والأشكال الهندسية والمجموعات.</p>
+    <!-- Student Registration -->
+    <div class="student-card">
+      <h3>📝 بيانات الطالب / الطالبة</h3>
+      <div class="input-grid">
+        <div class="form-group">
+          <label for="studentName">اسم الطالب رباعي:</label>
+          <input type="text" id="studentName" placeholder="أدخل اسمك الكريم..." required>
+        </div>
+        <div class="form-group">
+          <label for="studentClass">الفصل / المجموعة:</label>
+          <input type="text" id="studentClass" placeholder="مثال: 1 / 2">
+        </div>
+        <div class="form-group">
+          <label for="seatNumber">رقم الجلوس (إن وُجد):</label>
+          <input type="text" id="seatNumber" placeholder="مثال: 1045">
         </div>
       </div>
-
-      <!-- Registration Form -->
-      <div class="p-6 md:p-10 max-w-2xl mx-auto">
-        <form id="student-form" onsubmit="startExam(event)" class="space-y-6">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-            <div>
-              <label class="block text-sm font-bold text-slate-700 mb-2">
-                <i class="fa-solid fa-user-graduate text-brand-orange ml-1"></i> اسم الطالب الثلاثي / الرباعي *
-              </label>
-              <input type="text" id="student-name" required placeholder="اكتب اسمك بالكامل هنا..." class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-orange focus:border-brand-orange outline-none transition font-medium">
-            </div>
-
-            <div>
-              <label class="block text-sm font-bold text-slate-700 mb-2">
-                <i class="fa-solid fa-id-card-clip text-brand-orange ml-1"></i> رقم الجلوس *
-              </label>
-              <input type="number" id="seat-number" required placeholder="مثال: 1042" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-orange focus:border-brand-orange outline-none transition font-medium">
-            </div>
-          </div>
-
-          <div>
-            <label class="block text-sm font-bold text-slate-700 mb-2">
-              <i class="fa-solid fa-chalkboard-user text-brand-orange ml-1"></i> الفصل الدراسي *
-            </label>
-            <select id="student-class" required class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-orange focus:border-brand-orange outline-none transition font-medium bg-white">
-              <option value="" disabled selected>اختر فصلك...</option>
-              <option value="أولى أول (1/1)">الصف الأول الإعدادي - 1 / 1</option>
-              <option value="أولى ثان (1/2)">الصف الأول الإعدادي - 1 / 2</option>
-              <option value="أولى ثالث (1/3)">الصف الأول الإعدادي - 1 / 3</option>
-              <option value="أولى رابع (1/4)">الصف الأول الإعدادي - 1 / 4</option>
-              <option value="متميزين / سنتر المتفوقين">سنتر التفوق والمتميزين</option>
-            </select>
-          </div>
-
-          <!-- Exam Meta Banner -->
-          <div class="bg-amber-50 border-r-4 border-brand-orange p-4 rounded-xl flex items-center justify-between text-sm text-slate-700 font-semibold">
-            <div>
-              <i class="fa-solid fa-info-circle text-brand-orange ml-1"></i>
-              الدرجة الكلية: <span class="text-brand-navy font-bold">30 درجة</span> (10 درجات للاختيار + 20 درجة للمقالي)
-            </div>
-            <div class="text-slate-500 font-normal">الزمن المقترح: 45 دقيقة</div>
-          </div>
-
-          <button type="submit" class="w-full bg-gradient-to-r from-brand-orange to-amber-500 hover:from-amber-600 hover:to-brand-orange text-white py-4 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transition duration-300 flex items-center justify-center gap-3">
-            <span>ابدأ حل الاختبار الآن</span>
-            <i class="fa-solid fa-arrow-left"></i>
-          </button>
-        </form>
-      </div>
-    </section>
-
-    <!-- ==================== VIEW 2: EXAM PAPER ==================== -->
-    <section id="view-exam" class="hidden space-y-6">
-      <!-- Progress Bar & Quick Stats -->
-      <div class="bg-white p-4 rounded-2xl shadow-md border border-slate-200 flex flex-wrap items-center justify-between gap-4">
-        <div>
-          <span class="text-xs font-bold text-slate-400 block">الطالب الممتحن:</span>
-          <span id="exam-badge-student" class="font-bold text-brand-navy text-base"></span>
-        </div>
-        <div class="flex-1 max-w-xs mx-auto">
-          <div class="flex justify-between text-xs font-bold mb-1 text-slate-600">
-            <span>نسبة إنجاز الاختبار</span>
-            <span id="completion-rate">0%</span>
-          </div>
-          <div class="w-full bg-slate-200 rounded-full h-2.5 overflow-hidden">
-            <div id="progress-bar-fill" class="bg-gradient-to-r from-brand-orange to-amber-500 h-2.5 rounded-full transition-all duration-300 w-0"></div>
-          </div>
-        </div>
-        <div class="text-left font-bold text-slate-600 text-sm">
-          الورقة: <span class="text-brand-orange">1 و 2 كاملة</span>
-        </div>
-      </div>
-
-      <!-- SECTION 1: MULTIPLE CHOICE QUESTIONS (10 MARKS) -->
-      <div class="bg-white rounded-3xl shadow-lg border border-slate-200 overflow-hidden">
-        <div class="bg-gradient-to-r from-brand-navy to-brand-navyDark text-white px-6 py-4 flex items-center justify-between">
-          <div class="flex items-center gap-2">
-            <span class="bg-brand-orange text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">1</span>
-            <h3 class="font-bold text-lg">السؤال الأول: اختر الإجابة الصحيحة من بين الإجابات المعطاة (10 درجات)</h3>
-          </div>
-          <span class="text-xs bg-white/20 px-3 py-1 rounded-full font-bold">11 سؤال اختيار</span>
-        </div>
-
-        <div class="p-6 md:p-8 space-y-8 divide-y divide-slate-100" id="mcq-container">
-          <!-- MCQ items will be injected or rendered here -->
-        </div>
-      </div>
-
-      <!-- SECTION 2: ESSAY QUESTIONS (20 MARKS) -->
-      <div class="bg-white rounded-3xl shadow-lg border border-slate-200 overflow-hidden">
-        <div class="bg-gradient-to-r from-sky-800 to-brand-navy text-white px-6 py-4 flex items-center justify-between">
-          <div class="flex items-center gap-2">
-            <span class="bg-brand-orange text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">2</span>
-            <h3 class="font-bold text-lg">السؤال الثاني: أجب عن الأسئلة المقالية الآتية (20 درجة)</h3>
-          </div>
-          <span class="text-xs bg-white/20 px-3 py-1 rounded-full font-bold">الورقة الثانية</span>
-        </div>
-
-        <div class="p-6 md:p-8 space-y-10">
-          
-          <!-- Essay Q1 -->
-          <div class="p-5 rounded-2xl border-2 border-slate-200 hover:border-slate-300 transition bg-slate-50/50">
-            <div class="flex items-start gap-3">
-              <span class="font-black text-brand-navy bg-white px-2.5 py-1 rounded-lg border shadow-sm text-sm">س 1</span>
-              <p class="font-bold text-slate-800 text-base md:text-lg leading-relaxed">
-                إذا كانت نسبة الخصم <span class="text-brand-orange font-black">10%</span> على أي قطعة داخل محل للملابس؛ فما هو ثمن شراء قميص سعره قبل الخصم <span class="text-brand-navy font-black">300 جنيه</span>؟
-              </p>
-            </div>
-            
-            <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label class="block text-xs font-bold text-slate-500 mb-1">خطوات الحل التفصيلية:</label>
-                <textarea id="essay-steps-1" rows="3" placeholder="اكتب طريقة حساب مقدار الخصم ثم الثمن بعد الخصم..." class="w-full p-3 text-sm rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-orange focus:border-brand-orange outline-none bg-white"></textarea>
-              </div>
-              <div>
-                <label class="block text-xs font-bold text-slate-500 mb-1">الناتج النهائي لثمن الشراء بعد الخصم (بالجنيه):</label>
-                <div class="relative">
-                  <input type="number" id="essay-ans-1" placeholder="مثلاً: 250" class="w-full p-3 pl-14 text-base font-bold rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-orange focus:border-brand-orange outline-none bg-white">
-                  <span class="absolute left-3 top-3 text-slate-400 font-bold text-sm">جنيه</span>
-                </div>
-                <p class="text-xs text-slate-400 mt-2">تلميح: احسب قيمة التخفيض أولاً واطرحه من السعر الأصلي.</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Essay Q2 -->
-          <div class="p-5 rounded-2xl border-2 border-slate-200 hover:border-slate-300 transition bg-slate-50/50">
-            <div class="flex items-start gap-3">
-              <span class="font-black text-brand-navy bg-white px-2.5 py-1 rounded-lg border shadow-sm text-sm">س 2</span>
-              <p class="font-bold text-slate-800 text-base md:text-lg leading-relaxed">
-                عددان صحيحان النسبة بينهما <span class="font-black text-brand-orange font-mono">3 : 5</span> والفرق بينهما <span class="text-brand-navy font-black font-mono">18</span> ، أوجد العددين.
-              </p>
-            </div>
-
-            <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div class="md:col-span-1">
-                <label class="block text-xs font-bold text-slate-500 mb-1">خطوات الحل واكتشاف قيمة الجزء:</label>
-                <textarea id="essay-steps-2" rows="3" placeholder="الفرق بين الأجزاء = ... ثم قيمة الجزء = ..." class="w-full p-3 text-sm rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-orange focus:border-brand-orange outline-none bg-white"></textarea>
-              </div>
-              <div>
-                <label class="block text-xs font-bold text-slate-500 mb-1">العدد الأول (الأصغر):</label>
-                <input type="number" id="essay-ans-2a" placeholder="العدد الأصغر" class="w-full p-3 text-base font-bold rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-orange focus:border-brand-orange outline-none bg-white">
-              </div>
-              <div>
-                <label class="block text-xs font-bold text-slate-500 mb-1">العدد الثاني (الأكبر):</label>
-                <input type="number" id="essay-ans-2b" placeholder="العدد الأكبر" class="w-full p-3 text-base font-bold rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-orange focus:border-brand-orange outline-none bg-white">
-              </div>
-            </div>
-          </div>
-
-          <!-- Essay Q3 (Venn Diagram) -->
-          <div class="p-5 rounded-2xl border-2 border-slate-200 hover:border-slate-300 transition bg-slate-50/50">
-            <div class="flex items-start gap-3 mb-4">
-              <span class="font-black text-brand-navy bg-white px-2.5 py-1 rounded-lg border shadow-sm text-sm">س 3</span>
-              <p class="font-bold text-slate-800 text-base md:text-lg leading-relaxed">
-                من شكل <span class="text-brand-orange font-black">فِن (Venn)</span> المقابل، أوجد كلاً مما يأتي:
-              </p>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-              
-              <!-- Venn SVG Graph (Faithfully drawn according to image 1) -->
-              <div class="lg:col-span-6 bg-white p-3 rounded-2xl border border-slate-200 shadow-inner flex flex-col items-center justify-center">
-                <div class="w-full max-w-sm aspect-[4/3] relative">
-                  <svg viewBox="0 0 400 280" class="w-full h-full select-none" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Outer frame -->
-                    <rect x="5" y="5" width="390" height="270" rx="16" fill="#f8fafc" stroke="#38bdf8" stroke-width="2"/>
-                    
-                    <!-- Circle A -->
-                    <ellipse cx="150" cy="140" rx="90" ry="75" fill="#38bdf8" fill-opacity="0.1" stroke="#0284c7" stroke-width="3"/>
-                    
-                    <!-- Circle B -->
-                    <ellipse cx="255" cy="140" rx="95" ry="80" fill="#10b981" fill-opacity="0.08" stroke="#059669" stroke-width="3"/>
-                    
-                    <!-- Inner Circle C (inside B) -->
-                    <circle cx="285" cy="140" r="38" fill="#f59e0b" fill-opacity="0.18" stroke="#d97706" stroke-width="2.5"/>
-                    
-                    <!-- Set Labels -->
-                    <text x="145" y="50" font-family="'Cairo', sans-serif" font-weight="900" font-size="22" fill="#0369a1" text-anchor="middle">A</text>
-                    <text x="260" y="44" font-family="'Cairo', sans-serif" font-weight="900" font-size="22" fill="#047857" text-anchor="middle">B</text>
-                    <text x="285" y="122" font-family="'Cairo', sans-serif" font-weight="900" font-size="18" fill="#b45309" text-anchor="middle">C</text>
-
-                    <!-- Elements in A only -->
-                    <g fill="#1e293b" font-family="'Cairo', sans-serif" font-weight="bold" font-size="16">
-                      <!-- 2 -->
-                      <circle cx="100" cy="120" r="3.5" fill="#0f172a"/>
-                      <text x="116" y="125">2</text>
-                      
-                      <!-- 3 -->
-                      <circle cx="105" cy="170" r="3.5" fill="#0f172a"/>
-                      <text x="121" y="175">3</text>
-                    </g>
-
-                    <!-- Elements in Intersection (A and B) -->
-                    <g fill="#1e293b" font-family="'Cairo', sans-serif" font-weight="bold" font-size="16">
-                      <!-- 4 -->
-                      <circle cx="198" cy="108" r="3.5" fill="#0f172a"/>
-                      <text x="212" y="113">4</text>
-                      
-                      <!-- 5 -->
-                      <circle cx="196" cy="165" r="3.5" fill="#0f172a"/>
-                      <text x="210" y="170">5</text>
-                    </g>
-
-                    <!-- Elements in C -->
-                    <g fill="#1e293b" font-family="'Cairo', sans-serif" font-weight="bold" font-size="16">
-                      <!-- 6 -->
-                      <circle cx="280" cy="150" r="3.5" fill="#0f172a"/>
-                      <text x="295" y="155">6</text>
-                    </g>
-
-                    <!-- Elements in B outside A and C -->
-                    <g fill="#1e293b" font-family="'Cairo', sans-serif" font-weight="bold" font-size="16">
-                      <!-- 7 -->
-                      <circle cx="238" cy="205" r="3.5" fill="#0f172a"/>
-                      <text x="252" y="210">7</text>
-                    </g>
-                  </svg>
-                </div>
-                <span class="text-xs text-slate-500 font-bold mt-1">شكل فِن (المجموعات A, B, C)</span>
-              </div>
-
-              <!-- Venn Questions inputs -->
-              <div class="lg:col-span-6 space-y-4">
-                <div>
-                  <label class="block text-sm font-bold text-slate-700 mb-1">
-                    <span class="text-sky-600 font-black">① A ∩ C</span> (تقاطع المجموعة A مع المجموعة C):
-                  </label>
-                  <input type="text" id="essay-ans-3a" placeholder="مثال: ∅ أو خالية أو {}" class="w-full p-2.5 text-sm font-bold rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-orange outline-none bg-white">
-                  <p class="text-[11px] text-slate-400">يمكنك كتابة ∅ أو المجموعة الخالية أو الأرقام داخل قوسين</p>
-                </div>
-
-                <div>
-                  <label class="block text-sm font-bold text-slate-700 mb-1">
-                    <span class="text-emerald-600 font-black">② B ∩ C</span> (تقاطع المجموعة B مع المجموعة C):
-                  </label>
-                  <input type="text" id="essay-ans-3b" placeholder="اكتب العناصر مثل {6} أو 6 أو C" class="w-full p-2.5 text-sm font-bold rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-orange outline-none bg-white">
-                </div>
-
-                <div>
-                  <label class="block text-sm font-bold text-slate-700 mb-1">
-                    <span class="text-indigo-600 font-black">③ A ∪ C</span> (اتحاد المجموعة A مع المجموعة C):
-                  </label>
-                  <input type="text" id="essay-ans-3c" placeholder="اكتب العناصر المشتركة وغير المشتركة مثل: 2, 3, 4, 5, 6" class="w-full p-2.5 text-sm font-bold rounded-xl border border-slate-300 focus:ring-2 focus:ring-brand-orange outline-none bg-white">
-                </div>
-              </div>
-
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-      <!-- Action buttons -->
-      <div class="flex flex-col sm:flex-row items-center justify-between gap-4 py-4">
-        <button type="button" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="text-slate-500 hover:text-slate-800 text-sm font-bold flex items-center gap-2">
-          <i class="fa-solid fa-arrow-up"></i> العودة لأعلى الصفحة
-        </button>
-
-        <button type="button" onclick="submitExam()" class="w-full sm:w-auto px-10 py-4 bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-700 hover:to-teal-800 text-white font-black text-lg rounded-2xl shadow-xl hover:shadow-2xl transition duration-300 flex items-center justify-center gap-3">
-          <i class="fa-solid fa-check-double"></i>
-          <span>تسليم ورقة الإجابة واعتماد النتيجة</span>
-        </button>
-      </div>
-    </section>
-
-    <!-- ==================== VIEW 3: RESULTS & SCOREBOARD ==================== -->
-    <section id="view-result" class="hidden space-y-8">
-      
-      <!-- Top Score Hero Card -->
-      <div class="bg-white rounded-3xl p-6 md:p-8 shadow-xl border border-slate-200 text-center relative overflow-hidden">
-        <div class="absolute inset-x-0 top-0 h-3 bg-gradient-to-r from-brand-orange via-amber-400 to-brand-navy"></div>
-        
-        <div class="max-w-xl mx-auto space-y-4">
-          <div id="result-icon-container" class="w-20 h-20 mx-auto rounded-full flex items-center justify-center text-4xl shadow-inner">
-            <!-- Icon by JS -->
-          </div>
-
-          <h2 id="result-greeting" class="text-2xl md:text-3xl font-black text-brand-navy"></h2>
-          <p id="result-message" class="text-slate-600 text-sm md:text-base font-medium"></p>
-
-          <!-- Score Circle Box -->
-          <div class="inline-flex items-baseline justify-center gap-2 bg-slate-50 px-8 py-4 rounded-2xl border-2 border-slate-200">
-            <span class="text-xs text-slate-500 font-bold">الدرجة المستحقة:</span>
-            <span id="final-score" class="text-4xl md:text-5xl font-black text-brand-orange">0</span>
-            <span class="text-xl md:text-2xl font-black text-slate-700">/ 30</span>
-            <span id="final-percentage" class="text-sm font-bold bg-amber-100 text-amber-900 px-2 py-0.5 rounded-lg mr-2">0%</span>
-          </div>
-
-          <!-- Quick breakdown table -->
-          <div class="grid grid-cols-2 gap-3 max-w-sm mx-auto text-xs md:text-sm font-bold pt-2">
-            <div class="p-3 bg-blue-50 text-blue-900 rounded-xl">
-              س1 (الاختيارات): <span id="mcq-score-summary" class="font-black text-base">0 / 10</span>
-            </div>
-            <div class="p-3 bg-emerald-50 text-emerald-900 rounded-xl">
-              س2 (المقالي): <span id="essay-score-summary" class="font-black text-base">0 / 20</span>
-            </div>
-          </div>
-
-          <!-- Buttons: Certificate and Retake -->
-          <div class="flex flex-wrap items-center justify-center gap-4 pt-4">
-            <button onclick="openCertificateModal()" class="px-8 py-3.5 bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-black rounded-xl shadow-lg transition flex items-center gap-2 text-base">
-              <i class="fa-solid fa-award text-lg"></i>
-              <span>عرض شهادة التقدير الفخمة</span>
-            </button>
-            <button onclick="restartExam()" class="px-6 py-3.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl transition flex items-center gap-2 text-sm">
-              <i class="fa-solid fa-rotate-right"></i>
-              <span>إعادة الاختبار</span>
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Detailed Question Solutions Review -->
-      <div class="bg-white rounded-3xl shadow-xl border border-slate-200 p-6 md:p-8">
-        <h3 class="text-xl font-black text-brand-navy mb-6 flex items-center gap-2 border-b pb-4">
-          <i class="fa-solid fa-clipboard-check text-brand-orange"></i>
-          نموذج الإجابة الرسمي ومراجعة الحلول التفصيلية
-        </h3>
-        <div id="detailed-review-container" class="space-y-6">
-          <!-- Injected via JavaScript -->
-        </div>
-      </div>
-
-    </section>
-
-  </main>
-
-  <!-- ==================== MODAL: LUXURIOUS CERTIFICATE ==================== -->
-  <div id="certificate-modal" class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-sm hidden overflow-y-auto p-4 md:p-8 flex items-center justify-center">
-    <div class="relative w-full max-w-4xl bg-transparent">
-      
-      <!-- Close & Action Bar (Hidden on print) -->
-      <div class="flex items-center justify-between mb-4 no-print">
-        <div class="flex items-center gap-2">
-          <button onclick="window.print()" class="px-5 py-2.5 bg-brand-orange hover:bg-brand-orangeLight text-white rounded-xl font-bold shadow-lg transition flex items-center gap-2 text-sm">
-            <i class="fa-solid fa-print"></i>
-            <span>طباعة الشهادة (A4) / حفظ كـ PDF</span>
-          </button>
-        </div>
-        <button onclick="closeCertificateModal()" class="w-10 h-10 rounded-full bg-white/20 hover:bg-white/40 text-white flex items-center justify-center transition">
-          <i class="fa-solid fa-xmark text-lg"></i>
-        </button>
-      </div>
-
-      <!-- The Printable Luxury Certificate Container -->
-      <div id="printable-certificate" class="cert-border-outer">
-        <div class="cert-border-inner p-6 md:p-10 rounded-xl relative overflow-hidden text-center text-slate-900">
-          
-          <!-- Watermark Logo -->
-          <svg class="cert-watermark" viewBox="0 0 100 100">
-            <circle cx="50" cy="50" r="46" fill="none" stroke="#1b1b4b" stroke-width="4"/>
-            <path d="M50 16 L22 30 L50 44 L78 30 Z" fill="#1b1b4b"/>
-            <path d="M28 65 L28 42 L38 56 L48 42 L48 65" fill="none" stroke="#f37021" stroke-width="5"/>
-            <path d="M52 42 L66 42 Q74 42 74 50 Q74 57 66 57 L52 57 M62 57 L74 72" fill="none" stroke="#1b1b4b" stroke-width="5"/>
-          </svg>
-
-          <!-- Top Decorative Corner Badges -->
-          <div class="flex items-center justify-between border-b-2 border-amber-200/80 pb-4 mb-6">
-            <!-- Ministry & Directorate Title -->
-            <div class="text-right text-xs md:text-sm font-bold text-slate-700 space-y-0.5">
-              <p>جمهورية مصر العربية</p>
-              <p>وزارة التربية والتعليم والتعليم الفني</p>
-              <p class="text-brand-orange font-black">سلسلة المستر في الرياضيات</p>
-            </div>
-
-            <!-- Teacher Logo -->
-            <div class="w-20 h-20 md:w-24 md:h-24 p-1 bg-white rounded-full shadow-md border-2 border-brand-orange flex items-center justify-center">
-              <svg viewBox="0 0 100 100" class="w-full h-full">
-                <circle cx="50" cy="50" r="46" fill="none" stroke="#1b1b4b" stroke-width="4"/>
-                <circle cx="50" cy="50" r="43" fill="none" stroke="#f37021" stroke-width="2"/>
-                <path d="M50 16 L22 30 L50 44 L78 30 Z" fill="#1b1b4b"/>
-                <polygon points="50,44 70,34 70,52 50,62 30,52 30,34" fill="#1b1b4b" opacity="0.9"/>
-                <path d="M74 32 L74 54" stroke="#f37021" stroke-width="3" stroke-linecap="round"/>
-                <circle cx="74" cy="56" r="2.5" fill="#f37021"/>
-                <path d="M28 65 L28 42 L38 56 L48 42 L48 65" fill="none" stroke="#f37021" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M52 42 L66 42 Q74 42 74 50 Q74 57 66 57 L52 57 M62 57 L74 72" fill="none" stroke="#1b1b4b" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-
-            <!-- Year & Stage -->
-            <div class="text-left text-xs md:text-sm font-bold text-slate-700 space-y-0.5">
-              <p>العام الدراسي: 2025 / 2026 م</p>
-              <p>الصف: الأول الإعدادي</p>
-              <p class="text-brand-navy font-black">الفصل الدراسي الأول</p>
-            </div>
-          </div>
-
-          <!-- Main Certificate Heading -->
-          <div class="space-y-1 mb-6">
-            <span class="text-xs uppercase tracking-widest text-amber-700 font-black">CERTIFICATE OF EXCELLENCE</span>
-            <h1 class="font-kufi text-3xl md:text-5xl font-black text-brand-navy">شَهَادَةُ تَقْدِيرٍ وَتَفَوُّق</h1>
-            <div class="w-36 h-1 bg-gradient-to-r from-transparent via-brand-orange to-transparent mx-auto mt-2"></div>
-          </div>
-
-          <!-- Body Text -->
-          <p class="text-slate-700 text-base md:text-lg font-amiri leading-relaxed max-w-2xl mx-auto">
-            يَسُرُّ إدارة مادة الرياضيات و <span class="font-bold text-brand-navy">أ / عبدالرحيم العربي</span>
-            أن تمنح هذه الشهادة المتميزة للطالب / الطالبة:
-          </p>
-
-          <!-- Student Name Callout -->
-          <div class="my-4 py-2 px-6 inline-block border-b-2 border-brand-orange bg-amber-50/60 rounded-xl">
-            <h2 id="cert-student-name" class="text-2xl md:text-4xl font-extrabold text-brand-navy font-amiri">محمد أحمد محمود</h2>
-          </div>
-
-          <p class="text-slate-600 text-sm md:text-base font-semibold max-w-xl mx-auto">
-            المقيد بفصل: <span id="cert-student-class" class="font-bold text-brand-navy">1/1</span> - رقم الجلوس: (<span id="cert-seat-no" class="font-bold"></span>)
-            <br>
-            تقديراً لاجتيازه الاختبار الشامل لمادة الرياضيات وحصوله على درجة:
-          </p>
-
-          <!-- Score Badge in Certificate -->
-          <div class="my-5 flex items-center justify-center gap-4">
-            <div class="bg-gradient-to-br from-amber-400 to-amber-600 text-white px-6 py-2 rounded-2xl shadow-md border border-amber-300">
-              <span class="text-xs block font-bold text-amber-100">الدرجة والتقدير</span>
-              <span id="cert-score-text" class="text-2xl md:text-3xl font-black">29 / 30 (ممتاز مرتفع)</span>
-            </div>
-          </div>
-
-          <p class="text-xs md:text-sm font-amiri italic text-slate-500 mb-8">
-            «مَعَ أَطْيَبِ التَّمَنِّيَاتِ لِجَمِيعِ أَبْنَائِنَا وَبَنَاتِنَا بِدَوَامِ النَّجَاحِ وَالتَّفَوُّقِ البَاهِر»
-          </p>
-
-          <!-- Bottom Footer: Signatures, Stamp & Teacher Image -->
-          <div class="grid grid-cols-3 items-end pt-4 border-t border-slate-200">
-            
-            <!-- Golden Official Stamp -->
-            <div class="flex flex-col items-center justify-center">
-              <div class="w-24 h-24 rounded-full border-4 border-dashed border-amber-600 p-1 flex flex-col items-center justify-center rotate-[-12deg] bg-amber-50 shadow-inner">
-                <span class="text-[9px] font-black text-amber-800">مُعْتَمَد رَسْمِيّاً</span>
-                <span class="text-xs font-black text-brand-navy">المستر في الرياضيات</span>
-                <span class="text-[9px] font-bold text-brand-orange">أ/ عبدالرحيم العربي</span>
-                <span class="text-[8px] font-mono text-slate-500">2025 - 2026</span>
-              </div>
-              <span class="text-[11px] font-bold text-slate-400 mt-2">خاتم الاعتماد والتميز</span>
-            </div>
-
-            <!-- Teacher Image & Phone in Certificate -->
-            <div class="flex flex-col items-center">
-              <div class="w-16 h-16 md:w-20 md:h-20 rounded-full border-2 border-brand-orange shadow-md overflow-hidden bg-slate-100">
-                <img src="image_1a1bdf.jpg" alt="أ/ عبدالرحيم العربي" class="w-full h-full object-cover object-top" onerror="this.onerror=null; this.src='https://placehold.co/150x150/1b1b4b/white?text=أ.+عبدالرحيم'">
-              </div>
-              <span class="text-xs font-bold text-slate-700 mt-1">توجيه مادة الرياضيات</span>
-              <span class="text-[10px] font-mono text-brand-orange font-bold">01001607834</span>
-            </div>
-
-            <!-- Teacher Signature -->
-            <div class="text-center">
-              <p class="text-xs md:text-sm font-bold text-slate-500 mb-1">معد ومصحح الاختبار</p>
-              <div class="font-amiri text-xl md:text-2xl font-black text-brand-navy italic">
-                أ. عبدالرحيم العربي
-              </div>
-              <div class="w-28 h-0.5 bg-brand-navy mx-auto mt-1 opacity-40"></div>
-              <span class="text-[10px] text-slate-400 block mt-1">توقيع المعلم الأول</span>
-            </div>
-
-          </div>
-
-        </div>
-      </div>
-
     </div>
+
+    <!-- Section 1: Multiple Choice Questions -->
+    <div class="section-header">
+      <span>السؤال الأول: اختر الإجابة الصحيحة من بين الإجابات المعطاة</span>
+      <span class="points">10 درجات</span>
+    </div>
+
+    <form id="quizForm">
+
+      <!-- Q1 -->
+      <div class="q-card" data-q="1">
+        <div class="q-text">
+          (1) إذا كان 
+          <span class="fraction"><span class="top">2</span><span class="bottom">5</span></span> = 
+          <span class="fraction"><span class="top">k</span><span class="bottom">10</span></span>
+          ، فإن قيمة <span class="math-symbol">k</span> تساوي ...................
+        </div>
+        <div class="options-grid">
+          <div class="option-btn" onclick="selectOption(1, 'أ', this)"><span>2</span><span class="lbl">( أ )</span></div>
+          <div class="option-btn" onclick="selectOption(1, 'ب', this)"><span>4</span><span class="lbl">( ب )</span></div>
+          <div class="option-btn" onclick="selectOption(1, 'ج', this)"><span>5</span><span class="lbl">( ج )</span></div>
+          <div class="option-btn" onclick="selectOption(1, 'د', this)"><span>10</span><span class="lbl">( د )</span></div>
+        </div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="q-card" data-q="2">
+        <div class="q-text">
+          (2) إذا كانت الكميات <span class="math-symbol">2 , 8 , x , 16</span> كميات متناسبة، فإن <span class="math-symbol">x</span> = ...................
+        </div>
+        <div class="options-grid">
+          <div class="option-btn" onclick="selectOption(2, 'أ', this)"><span>2</span><span class="lbl">( أ )</span></div>
+          <div class="option-btn" onclick="selectOption(2, 'ب', this)"><span>4</span><span class="lbl">( ب )</span></div>
+          <div class="option-btn" onclick="selectOption(2, 'ج', this)"><span>10</span><span class="lbl">( ج )</span></div>
+          <div class="option-btn" onclick="selectOption(2, 'د', this)"><span>16</span><span class="lbl">( د )</span></div>
+        </div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="q-card" data-q="3">
+        <div class="q-text">
+          (3) إذا كان <span class="math-symbol">3y = 5x</span> ، فإن 
+          <span class="fraction"><span class="top">x</span><span class="bottom">y</span></span> = ...................
+        </div>
+        <div class="options-grid">
+          <div class="option-btn" onclick="selectOption(3, 'أ', this)"><span>3 : 5</span><span class="lbl">( أ )</span></div>
+          <div class="option-btn" onclick="selectOption(3, 'ب', this)"><span>5 : 3</span><span class="lbl">( ب )</span></div>
+          <div class="option-btn" onclick="selectOption(3, 'ج', this)"><span>1 : 15</span><span class="lbl">( ج )</span></div>
+          <div class="option-btn" onclick="selectOption(3, 'د', this)"><span>15 : 1</span><span class="lbl">( د )</span></div>
+        </div>
+      </div>
+
+      <!-- Q4 -->
+      <div class="q-card" data-q="4">
+        <div class="q-text">
+          (4) إذا كان 
+          <span class="fraction"><span class="top">6</span><span class="bottom">x - 1</span></span> = 
+          <span class="fraction"><span class="top">2</span><span class="bottom">3</span></span>
+          ، فإن <span class="math-symbol">x</span> = ...................
+        </div>
+        <div class="options-grid">
+          <div class="option-btn" onclick="selectOption(4, 'أ', this)"><span>6</span><span class="lbl">( أ )</span></div>
+          <div class="option-btn" onclick="selectOption(4, 'ب', this)"><span>8</span><span class="lbl">( ب )</span></div>
+          <div class="option-btn" onclick="selectOption(4, 'ج', this)"><span>10</span><span class="lbl">( ج )</span></div>
+          <div class="option-btn" onclick="selectOption(4, 'د', this)"><span>9</span><span class="lbl">( د )</span></div>
+        </div>
+      </div>
+
+      <!-- Q5 -->
+      <div class="q-card" data-q="5">
+        <div class="q-text">
+          (5) إذا كان مقياس رسم قناة السويس <span class="math-symbol">1 : 1,100,000</span> وكان طولها على الخريطة <span class="math-symbol">15 cm</span> ، فإن الطول الحقيقي للقناة = ................... <span class="math-symbol">km</span>
+        </div>
+        <div class="options-grid">
+          <div class="option-btn" onclick="selectOption(5, 'أ', this)"><span>1.65</span><span class="lbl">( أ )</span></div>
+          <div class="option-btn" onclick="selectOption(5, 'ب', this)"><span>16.5</span><span class="lbl">( ب )</span></div>
+          <div class="option-btn" onclick="selectOption(5, 'ج', this)"><span>165</span><span class="lbl">( ج )</span></div>
+          <div class="option-btn" onclick="selectOption(5, 'د', this)"><span>16,500,000</span><span class="lbl">( د )</span></div>
+        </div>
+      </div>
+
+      <!-- Q6 -->
+      <div class="q-card" data-q="6">
+        <div class="q-text">
+          (6) إذا انخفض سعر سلعة من <span class="math-symbol">1,500</span> إلى <span class="math-symbol">1,200</span> جنيه، فإن نسبة التخفيض هي ...................
+        </div>
+        <div class="options-grid">
+          <div class="option-btn" onclick="selectOption(6, 'أ', this)"><span>5%</span><span class="lbl">( أ )</span></div>
+          <div class="option-btn" onclick="selectOption(6, 'ب', this)"><span>10%</span><span class="lbl">( ب )</span></div>
+          <div class="option-btn" onclick="selectOption(6, 'ج', this)"><span>20%</span><span class="lbl">( ج )</span></div>
+          <div class="option-btn" onclick="selectOption(6, 'د', this)"><span>30%</span><span class="lbl">( د )</span></div>
+        </div>
+      </div>
+
+      <!-- Q7 -->
+      <div class="q-card" data-q="7">
+        <div class="q-text">
+          (7) إذا كانت <span class="math-symbol">10%</span> من <span class="math-symbol">x</span> تساوي <span class="math-symbol">4</span> ، فإن <span class="math-symbol">x</span> = ...................
+        </div>
+        <div class="options-grid">
+          <div class="option-btn" onclick="selectOption(7, 'أ', this)"><span>20</span><span class="lbl">( أ )</span></div>
+          <div class="option-btn" onclick="selectOption(7, 'ب', this)"><span>40</span><span class="lbl">( ب )</span></div>
+          <div class="option-btn" onclick="selectOption(7, 'ج', this)"><span>80</span><span class="lbl">( ج )</span></div>
+          <div class="option-btn" onclick="selectOption(7, 'د', this)"><span>200</span><span class="lbl">( د )</span></div>
+        </div>
+      </div>
+
+      <!-- Q8 -->
+      <div class="q-card" data-q="8">
+        <div class="q-text">
+          (8) إذا كانت <span class="math-symbol">{4 , 5 , 7} ⊂ {3 , x , 4 , y , 8}</span> ، فما قيمة <span class="math-symbol">x + y</span> ؟
+        </div>
+        <div class="options-grid">
+          <div class="option-btn" onclick="selectOption(8, 'أ', this)"><span>5</span><span class="lbl">( أ )</span></div>
+          <div class="option-btn" onclick="selectOption(8, 'ب', this)"><span>7</span><span class="lbl">( ب )</span></div>
+          <div class="option-btn" onclick="selectOption(8, 'ج', this)"><span>8</span><span class="lbl">( ج )</span></div>
+          <div class="option-btn" onclick="selectOption(8, 'د', this)"><span>12</span><span class="lbl">( د )</span></div>
+        </div>
+      </div>
+
+      <!-- Q9 -->
+      <div class="q-card" data-q="9">
+        <div class="q-text">
+          (9) عدد المجموعات الجزئية لمجموعة تحتوي على <span class="math-symbol">5</span> عناصر يساوي ................... مجموعة.
+        </div>
+        <div class="options-grid">
+          <div class="option-btn" onclick="selectOption(9, 'أ', this)"><span>5</span><span class="lbl">( أ )</span></div>
+          <div class="option-btn" onclick="selectOption(9, 'ب', this)"><span>10</span><span class="lbl">( ب )</span></div>
+          <div class="option-btn" onclick="selectOption(9, 'ج', this)"><span>20</span><span class="lbl">( ج )</span></div>
+          <div class="option-btn" onclick="selectOption(9, 'د', this)"><span>32</span><span class="lbl">( د )</span></div>
+        </div>
+      </div>
+
+      <!-- Q10 -->
+      <div class="q-card" data-q="10">
+        <div class="q-text">
+          (10) من المجموعات الجزئية غير الفعلية للمجموعة <span class="math-symbol">{2 , 4 , 8}</span> هي ...................
+        </div>
+        <div class="options-grid">
+          <div class="option-btn" onclick="selectOption(10, 'أ', this)"><span>{2}</span><span class="lbl">( أ )</span></div>
+          <div class="option-btn" onclick="selectOption(10, 'ب', this)"><span>{4 , 8}</span><span class="lbl">( ب )</span></div>
+          <div class="option-btn" onclick="selectOption(10, 'ج', this)"><span>{2 , 4 , 8}</span><span class="lbl">( ج )</span></div>
+          <div class="option-btn" onclick="selectOption(10, 'د', this)"><span>{2 , 4}</span><span class="lbl">( د )</span></div>
+        </div>
+      </div>
+
+      <!-- Q11 -->
+      <div class="q-card" data-q="11">
+        <div class="q-text">
+          (11) عدد المجموعات الجزئية للمجموعة الخالية <span class="math-symbol">∅</span> يساوي ...................
+        </div>
+        <div class="options-grid">
+          <div class="option-btn" onclick="selectOption(11, 'أ', this)"><span>0 (صفر)</span><span class="lbl">( أ )</span></div>
+          <div class="option-btn" onclick="selectOption(11, 'ب', this)"><span>1</span><span class="lbl">( ب )</span></div>
+          <div class="option-btn" onclick="selectOption(11, 'ج', this)"><span>2</span><span class="lbl">( ج )</span></div>
+          <div class="option-btn" onclick="selectOption(11, 'د', this)"><span>3</span><span class="lbl">( د )</span></div>
+        </div>
+      </div>
+
+      <!-- Section 2: Essay Questions -->
+      <div class="section-header" style="background: linear-gradient(90deg, #0f766e, #0369a1); margin-top: 40px;">
+        <span>السؤال الثاني: أجب عن الأسئلة المقالية الآتية</span>
+        <span class="points">20 درجة</span>
+      </div>
+
+      <!-- Essay 1 -->
+      <div class="q-card">
+        <div class="q-text">
+          (1) إذا كانت نسبة الخصم <span class="math-symbol">10%</span> على أي قطعة داخل محل للملابس؛ فما هو ثمن شراء قميص سعره قبل الخصم <span class="math-symbol">300</span> جنيه؟
+        </div>
+        <div class="essay-box">
+          <input type="text" id="ans_e1" placeholder="اكتب الناتج النهائي بالأرقام (مثال: 270)...">
+        </div>
+      </div>
+
+      <!-- Essay 2 -->
+      <div class="q-card">
+        <div class="q-text">
+          (2) عددان صحيحان النسبة بينهما <span class="math-symbol">5 : 3</span> والفرق بينهما <span class="math-symbol">18</span> ، أوجد العددين.
+        </div>
+        <div class="essay-box">
+          <input type="text" id="ans_e2" placeholder="اكتب العددين مفصولين بفاصلة (مثال: 27 , 45)...">
+        </div>
+      </div>
+
+      <!-- Essay 3 with Venn Diagram -->
+      <div class="q-card">
+        <div class="q-text">
+          (3) من شكل ڤِن المقابل، أوجد كلاً مما يأتي:
+        </div>
+
+        <!-- SVG High Definition Venn Diagram -->
+        <div class="venn-wrapper">
+          <svg class="venn-svg" viewBox="0 0 520 280">
+            <!-- Set A -->
+            <circle cx="170" cy="140" r="105" fill="none" stroke="#38bdf8" stroke-width="4.5" />
+            <text x="110" y="38" fill="#38bdf8" font-size="24" font-weight="bold">A</text>
+            
+            <!-- Set B -->
+            <ellipse cx="320" cy="140" rx="135" ry="110" fill="none" stroke="#22c55e" stroke-width="4.5" />
+            <text x="350" y="32" fill="#22c55e" font-size="24" font-weight="bold">B</text>
+
+            <!-- Set C (Inside B) -->
+            <circle cx="360" cy="145" r="48" fill="none" stroke="#f59e0b" stroke-width="3.5" />
+            <text x="352" y="125" fill="#f59e0b" font-size="20" font-weight="bold">C</text>
+
+            <!-- Elements inside A only -->
+            <circle cx="95" cy="120" r="4" fill="#fff" />
+            <text x="110" y="126" fill="#fff" font-size="20" font-weight="bold">2</text>
+
+            <circle cx="105" cy="165" r="4" fill="#fff" />
+            <text x="120" y="172" fill="#fff" font-size="20" font-weight="bold">3</text>
+
+            <!-- Elements in A ∩ B -->
+            <circle cx="205" cy="115" r="4" fill="#fff" />
+            <text x="218" y="122" fill="#fff" font-size="20" font-weight="bold">4</text>
+
+            <circle cx="210" cy="165" r="4" fill="#fff" />
+            <text x="222" y="172" fill="#fff" font-size="20" font-weight="bold">5</text>
+
+            <!-- Element in C -->
+            <circle cx="340" cy="155" r="4" fill="#fff" />
+            <text x="352" y="162" fill="#fff" font-size="20" font-weight="bold">6</text>
+
+            <!-- Element in B outside A and C -->
+            <circle cx="265" cy="195" r="4" fill="#fff" />
+            <text x="278" y="202" fill="#fff" font-size="20" font-weight="bold">7</text>
+
+            <text x="260" y="270" fill="#94a3b8" font-size="14" text-anchor="middle">شكل ڤِن (المجموعات A , B , C)</text>
+          </svg>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 14px; margin-top: 15px;">
+          <div>
+            <label style="font-weight:700; color:#38bdf8;">① A ∩ C = </label>
+            <input type="text" id="ans_v1" placeholder="اكتب المجموعة (مثال: ∅ أو خالية)" style="background:#0b0f19; border:1px solid #334155; padding:8px 12px; border-radius:8px; color:#fff; width:220px;">
+          </div>
+          <div>
+            <label style="font-weight:700; color:#22c55e;">② B ∩ C = </label>
+            <input type="text" id="ans_v2" placeholder="اكتب المجموعة (مثال: {6} أو C)" style="background:#0b0f19; border:1px solid #334155; padding:8px 12px; border-radius:8px; color:#fff; width:220px;">
+          </div>
+          <div>
+            <label style="font-weight:700; color:#facc15;">③ A ∪ C = </label>
+            <input type="text" id="ans_v3" placeholder="مثال: {2, 3, 4, 5, 6}" style="background:#0b0f19; border:1px solid #334155; padding:8px 12px; border-radius:8px; color:#fff; width:220px;">
+          </div>
+        </div>
+      </div>
+
+      <button type="button" class="btn-submit" onclick="submitExam()">✨ تصحيح الاختبار واستلام الشهادة</button>
+    </form>
+
+    <!-- Results Area -->
+    <div id="results-area">
+      <div class="score-summary-card">
+        <h2 style="color:#fff;">نتيجة اختبار مادة الرياضيات</h2>
+        <p id="student-res-title" style="color:#94a3b8; margin-top:5px;"></p>
+        <div class="score-big"><span id="final-score">0</span> / 30</div>
+        <p id="appreciation" style="font-size: 1.3rem; font-weight: 800; color: #34d399;"></p>
+      </div>
+
+      <!-- Royal Certificate -->
+      <div id="certificate-view" class="certificate-container">
+        <div class="certificate">
+          <div class="cert-corner cert-tl"></div>
+          <div class="cert-corner cert-tr"></div>
+          <div class="cert-corner cert-bl"></div>
+          <div class="cert-corner cert-br"></div>
+
+          <div class="cert-header">
+            <div style="text-align: right;">
+              <h3 style="color:#92400e; font-size:1.1rem; font-weight:800;">مدارس المتفوقين في الرياضيات</h3>
+              <p style="color:#64748b; font-size:0.85rem;">إشراف مادة الرياضيات التخصصية</p>
+            </div>
+            <div class="cert-title">
+              <h2>شَهَادَةُ تَقْدِيرٍ وَتَفَوُّق</h2>
+              <p>CERTIFICATE OF EXCELLENCE</p>
+            </div>
+            <div style="text-align: left;">
+              <span style="font-size:0.85rem; color:#64748b;">العام الدراسي</span><br>
+              <strong style="color:#0f172a;">2025 / 2026 م</strong>
+            </div>
+          </div>
+
+          <div class="cert-body">
+            <p class="cert-details">يَسرّ المستر في الرياضيات أن يمنح الطالب / الطالبة:</p>
+            <div class="cert-student-name" id="certName">اسم الطالب</div>
+            <p class="cert-details">
+              بالصف: <strong>الأول الإعدادي</strong> تقديراً لتميزه واجتيازه اختبار مادة الرياضيات بجداره وحصوله على:
+            </p>
+            <div style="margin: 15px 0;">
+              <span class="cert-grade-tag" id="certScoreTag">الدرجة: 30 / 30 (ممتاز مرتفع)</span>
+            </div>
+            <p style="font-style: italic; color:#475569; font-size:0.95rem;">
+              «مع أطيب التمنيات بدوام التقدم والريادة الرياضية والنجاح الباهر»
+            </p>
+          </div>
+
+          <div class="cert-footer">
+            <!-- Stamp -->
+            <div class="cert-stamp">
+              ختم الاعتماد<br>المستر في الرياضيات<br>★ أ/ عبدالرحيم ★
+            </div>
+
+            <!-- Teacher Info and Photo Frame -->
+            <div class="cert-teacher-box">
+              <div style="display:flex; align-items:center; gap:14px; justify-content:center;">
+                <div style="width:70px; height:70px; border-radius:50%; border:3px solid #ff7b00; padding:2px; background:#fff; overflow:hidden;">
+                  <img id="cert-teacher-img" src="./teacher.png.jpeg" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80'" style="width:100%; height:100%; object-fit:cover;" alt="أ/ عبدالرحيم العربي">
+                </div>
+                <div style="text-align: right;">
+                  <h4 style="color:#0f172a; font-size:1.15rem; font-weight:900;">أ/ عبدالرحيم العربي</h4>
+                  <p style="color:#ea580c; font-weight:700; font-size:0.85rem;">المعلم الخبير في الرياضيات</p>
+                  <p style="font-size:0.8rem; color:#64748b;">ت: 01001607834</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="text-align:center;">
+          <button class="print-btn" onclick="window.print()">🖨️ طباعة أو حفظ الشهادة PDF</button>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <script>
-    // State management
-    const state = {
-      student: {
-        name: '',
-        seatNumber: '',
-        className: ''
-      },
-      timerInterval: null,
-      secondsElapsed: 0,
-      mcqAnswers: {},
-      essayAnswers: {
-        q1: '',
-        q2a: '',
-        q2b: '',
-        q3a: '',
-        q3b: '',
-        q3c: ''
-      },
-      score: {
-        mcq: 0,
-        essay: 0,
-        total: 0,
-        percentage: 0
-      }
+    // Correct Answers for Multiple Choice
+    const correctMCQ = {
+      1: 'ب', // 4
+      2: 'ب', // 4
+      3: 'أ', // 3:5
+      4: 'ج', // 10
+      5: 'ج', // 165
+      6: 'ج', // 20%
+      7: 'ب', // 40
+      8: 'د', // 12
+      9: 'د', // 32
+      10: 'ج', // {2, 4, 8}
+      11: 'ب'  // 1
     };
 
-    // 11 MCQs faithfully extracted from Paper 1 (image_1a1843.jpg)
-    const mcqData = [
-      {
-        id: 1,
-        textHtml: `إذا كان <span class="math-frac"><span class="math-frac-num">k</span><span class="math-frac-den">10</span></span> = <span class="math-frac"><span class="math-frac-num">2</span><span class="math-frac-den">5</span></span> ، فإن قيمة <span class="font-mono text-brand-orange font-bold">k</span> تساوي ............`,
-        options: [
-          { key: "أ", val: "2" },
-          { key: "ب", val: "4" },
-          { key: "ج", val: "5" },
-          { key: "د", val: "10" }
-        ],
-        correct: "ب",
-        correctVal: "4",
-        explanation: "بضرب طرفين في وسطين: k = (2 × 10) ÷ 5 = 20 ÷ 5 = 4."
-      },
-      {
-        id: 2,
-        textHtml: `إذا كانت الكميات <span class="font-mono font-bold">2 , 8 , x , 16</span> كميات متناسبة، فإن <span class="font-mono text-brand-orange font-bold">x</span> = ............`,
-        options: [
-          { key: "أ", val: "2" },
-          { key: "ب", val: "4" },
-          { key: "ج", val: "10" },
-          { key: "د", val: "16" }
-        ],
-        correct: "ب",
-        correctVal: "4",
-        explanation: "التناسب يعني: 2 / 8 = x / 16  ← حاصل ضرب الطرفين = الوسطين: 8 × x = 2 × 16 = 32 ← إذن x = 32 ÷ 8 = 4."
-      },
-      {
-        id: 3,
-        textHtml: `إذا كان <span class="font-mono font-bold">5x = 3y</span> ، فإن <span class="math-frac"><span class="math-frac-num">x</span><span class="math-frac-den">y</span></span> = ............`,
-        options: [
-          { key: "أ", val: "3 : 5" },
-          { key: "ب", val: "5 : 3" },
-          { key: "ج", val: "1 : 15" },
-          { key: "د", val: "15 : 1" }
-        ],
-        correct: "أ",
-        correctVal: "3 : 5",
-        explanation: "قاعدة التناسب (لا ترجع ويدك فارغة): x ÷ y = معامل y ÷ معامل x = 3 ÷ 5 (أي 3 : 5)."
-      },
-      {
-        id: 4,
-        textHtml: `إذا كان <span class="math-frac"><span class="math-frac-num">6</span><span class="math-frac-den">x - 1</span></span> = <span class="math-frac"><span class="math-frac-num">2</span><span class="math-frac-den">3</span></span> ، فإن <span class="font-mono text-brand-orange font-bold">x</span> = ............`,
-        options: [
-          { key: "أ", val: "6" },
-          { key: "ب", val: "8" },
-          { key: "ج", val: "10" },
-          { key: "د", val: "9" }
-        ],
-        correct: "ج",
-        correctVal: "10",
-        explanation: "2 × (x - 1) = 6 × 3 = 18 ← إذن (x - 1) = 18 ÷ 2 = 9 ← ومنها x = 9 + 1 = 10."
-      },
-      {
-        id: 5,
-        textHtml: `إذا كان مقياس رسم قناة السويس <span class="font-mono font-bold">1 : 1,100,000</span> وكان طولها على الخريطة <span class="font-mono font-bold">15 cm</span> ، فإن الطول الحقيقي للقناة = ............ <span class="font-mono text-brand-orange font-bold">km</span>`,
-        options: [
-          { key: "أ", val: "1.65" },
-          { key: "ب", val: "16.5" },
-          { key: "ج", val: "165" },
-          { key: "د", val: "16,500,000" }
-        ],
-        correct: "ج",
-        correctVal: "165",
-        explanation: "الطول الحقيقي بالسنتيمتر = 15 × 1,100,000 = 16,500,000 cm. للتحويل إلى كيلومتر نقسم على 100,000 ← 16,500,000 ÷ 100,000 = 165 km."
-      },
-      {
-        id: 6,
-        textHtml: `إذا انخفض سعر سلعة من <span class="font-mono font-bold">1,500</span> إلى <span class="font-mono font-bold">1,200</span> جنيه، فإن نسبة التخفيض هي ............`,
-        options: [
-          { key: "أ", val: "5%" },
-          { key: "ب", val: "10%" },
-          { key: "ج", val: "20%" },
-          { key: "د", val: "30%" }
-        ],
-        correct: "ج",
-        correctVal: "20%",
-        explanation: "قيمة الانخفاض = 1500 - 1200 = 300 جنيه. النسبة المئوية = (300 ÷ 1500) × 100 = 1/5 × 100 = 20%."
-      },
-      {
-        id: 7,
-        textHtml: `إذا كانت <span class="font-mono font-bold">10%</span> من <span class="font-mono font-bold">x</span> تساوي <span class="font-mono font-bold">4</span> ، فإن <span class="font-mono text-brand-orange font-bold">x</span> = ............`,
-        options: [
-          { key: "أ", val: "20" },
-          { key: "ب", val: "40" },
-          { key: "ج", val: "80" },
-          { key: "د", val: "200" }
-        ],
-        correct: "ب",
-        correctVal: "40",
-        explanation: "0.10 × x = 4 ← إذن x = 4 ÷ 0.10 = 40."
-      },
-      {
-        id: 8,
-        textHtml: `إذا كانت <span class="font-mono font-bold">{ 4 , 5 , 7 } ⊆ { 3 , x , 4 , y , 8 }</span> ، فما قيمة <span class="font-mono text-brand-orange font-bold">x + y</span> ؟`,
-        options: [
-          { key: "أ", val: "5" },
-          { key: "ب", val: "7" },
-          { key: "ج", val: "8" },
-          { key: "د", val: "12" }
-        ],
-        correct: "د",
-        correctVal: "12",
-        explanation: "العناصر 5 و 7 يجب أن تتواجد داخل المجموعة الشاملة، والـ 4 موجودة بالفعل، إذن {x, y} تمثلان {5, 7} ← ومجموعهما x + y = 5 + 7 = 12."
-      },
-      {
-        id: 9,
-        textHtml: `عدد المجموعات الجزئية لمجموعة تحتوي على <span class="font-mono font-bold">5</span> عناصر يساوي ............ مجموعة.`,
-        options: [
-          { key: "أ", val: "5" },
-          { key: "ب", val: "10" },
-          { key: "ج", val: "20" },
-          { key: "د", val: "32" }
-        ],
-        correct: "د",
-        correctVal: "32",
-        explanation: "قانون عدد المجموعات الجزئية = 2^n حيث n عدد العناصر ← 2^5 = 2 × 2 × 2 × 2 × 2 = 32 مجموعة."
-      },
-      {
-        id: 10,
-        textHtml: `من المجموعات الجزئية <span class="text-brand-orange font-bold">غير الفعلية</span> للمجموعة <span class="font-mono font-bold">{ 2 , 4 , 8 }</span> هي ............`,
-        options: [
-          { key: "أ", val: "{ 2 }" },
-          { key: "ب", val: "{ 4 , 8 }" },
-          { key: "ج", val: "{ 2 , 4 , 8 }" },
-          { key: "د", val: "{ 2 , 4 }" }
-        ],
-        correct: "ج",
-        correctVal: "{ 2 , 4 , 8 }",
-        explanation: "المجموعة الجزئية غير الفعلية (improper subset) لمجموعة ما هي المجموعة نفسها {2, 4, 8} (أو ∅ في بعض المناهج)، بينما المجموعات الأخرى مجموعات فعلية."
-      },
-      {
-        id: 11,
-        textHtml: `عدد المجموعات الجزئية للمجموعة الخالية <span class="font-mono font-bold text-brand-orange">∅</span> يساوي ............`,
-        options: [
-          { key: "أ", val: "0 (صفر)" },
-          { key: "ب", val: "1" },
-          { key: "ج", val: "2" },
-          { key: "د", val: "3" }
-        ],
-        correct: "ب",
-        correctVal: "1",
-        explanation: "المجموعة الخالية تحتوي 0 عنصر. عدد مجموعاتها الجزئية = 2^0 = 1 (وهي المجموعة الخالية ∅ نفسها فقط)."
-      }
-    ];
+    const userAnswers = {};
 
-    function renderMCQ() {
-      const container = document.getElementById('mcq-container');
-      container.innerHTML = '';
-
-      mcqData.forEach((q, index) => {
-        const item = document.createElement('div');
-        item.className = "pt-4 first:pt-0";
-        item.id = `mcq-card-${q.id}`;
-        
-        let optionsHtml = '';
-        q.options.forEach(opt => {
-          optionsHtml += `
-            <label class="relative flex items-center p-3.5 rounded-xl border border-slate-200 bg-white hover:border-brand-orange hover:bg-orange-50/40 cursor-pointer transition select-none group">
-              <input type="radio" name="mcq_${q.id}" value="${opt.key}" onchange="selectMCQAnswer(${q.id}, '${opt.key}')" class="hidden peer">
-              <div class="w-6 h-6 rounded-full border-2 border-slate-300 peer-checked:border-brand-orange peer-checked:bg-brand-orange flex items-center justify-center text-white text-xs font-bold transition ml-2">
-                ${opt.key}
-              </div>
-              <span class="text-slate-800 font-bold text-base peer-checked:text-brand-orange transition">${opt.val}</span>
-            </label>
-          `;
-        });
-
-        item.innerHTML = `
-          <div class="flex items-start gap-3 mb-3">
-            <span class="w-7 h-7 rounded-lg bg-brand-navy/10 text-brand-navy font-black flex items-center justify-center text-xs shrink-0 mt-0.5">
-              ${index + 1}
-            </span>
-            <div class="text-base md:text-lg font-bold text-slate-800 leading-relaxed">
-              ${q.textHtml}
-            </div>
-          </div>
-          <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mr-10">
-            ${optionsHtml}
-          </div>
-        `;
-        container.appendChild(item);
-      });
-    }
-
-    function selectMCQAnswer(questionId, optionKey) {
-      state.mcqAnswers[questionId] = optionKey;
-      updateProgressBar();
-    }
-
-    function updateProgressBar() {
-      const totalQuestions = mcqData.length + 3; // 11 MCQs + 3 Essay questions
-      let answeredCount = Object.keys(state.mcqAnswers).length;
-
-      // Check essay answers
-      const essay1 = document.getElementById('essay-ans-1').value.trim();
-      const essay2a = document.getElementById('essay-ans-2a').value.trim();
-      const essay3a = document.getElementById('essay-ans-3a').value.trim();
-
-      if (essay1) answeredCount++;
-      if (essay2a) answeredCount++;
-      if (essay3a) answeredCount++;
-
-      const percent = Math.min(100, Math.round((answeredCount / totalQuestions) * 100));
-      document.getElementById('completion-rate').innerText = `${percent}%`;
-      document.getElementById('progress-bar-fill').style.width = `${percent}%`;
-    }
-
-    function startTimer() {
-      state.secondsElapsed = 0;
-      const timerElement = document.getElementById('live-timer');
-      const timerContainer = document.getElementById('live-timer-container');
-      timerContainer.classList.remove('hidden');
-      timerContainer.classList.add('flex');
-
-      clearInterval(state.timerInterval);
-      state.timerInterval = setInterval(() => {
-        state.secondsElapsed++;
-        const mins = Math.floor(state.secondsElapsed / 60);
-        const secs = state.secondsElapsed % 60;
-        timerElement.innerText = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-      }, 1000);
-    }
-
-    function startExam(e) {
-      e.preventDefault();
-      const name = document.getElementById('student-name').value.trim();
-      const seat = document.getElementById('seat-number').value.trim();
-      const className = document.getElementById('student-class').value;
-
-      if (!name || !seat || !className) return;
-
-      state.student = { name, seatNumber: seat, className };
-      document.getElementById('exam-badge-student').innerText = `${name} (${className})`;
-
-      // Switch views
-      document.getElementById('view-intro').classList.add('hidden');
-      document.getElementById('view-exam').classList.remove('hidden');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-
-      renderMCQ();
-      startTimer();
+    function selectOption(qNum, choice, btnElement) {
+      userAnswers[qNum] = choice;
+      const parentCard = btnElement.closest('.q-card');
+      parentCard.querySelectorAll('.option-btn').forEach(btn => btn.classList.remove('selected'));
+      btnElement.classList.add('selected');
     }
 
     function submitExam() {
-      // Confirm submission using custom modal styled flow
-      const unAnsweredMCQs = mcqData.length - Object.keys(state.mcqAnswers).length;
-      if (unAnsweredMCQs > 0) {
-        const confirmSubmit = window.confirm(`تنبيه: لديك ${unAnsweredMCQs} سؤال لم تقم باختيار إجابته في السؤال الأول! هل تريد التسليم الفعلي؟`);
-        if (!confirmSubmit) return;
+      const name = document.getElementById('studentName').value.trim();
+      if (!name) {
+        alert('من فضلك اكتب اسمك أولاً في أعلى الصفحة لبدء التصحيح واستخراج الشهادة!');
+        document.getElementById('studentName').focus();
+        return;
       }
 
-      clearInterval(state.timerInterval);
+      let mcqScore = 0;
+      // Evaluate MCQ (Total 10 Marks - ~0.91 each or scaled)
+      for (let i = 1; i <= 11; i++) {
+        const card = document.querySelector(`.q-card[data-q="${i}"]`);
+        const btns = card.querySelectorAll('.option-btn');
+        const correct = correctMCQ[i];
 
-      // Evaluate Section 1: MCQ (10 points total -> each MCQ is 10/11 or scaled properly)
-      let correctMCQCount = 0;
-      mcqData.forEach(q => {
-        if (state.mcqAnswers[q.id] === q.correct) {
-          correctMCQCount++;
+        btns.forEach(b => {
+          b.classList.remove('correct', 'wrong');
+          if (b.innerText.includes(`(${correct})`)) {
+            b.classList.add('correct');
+          }
+        });
+
+        if (userAnswers[i] === correct) {
+          mcqScore += (10 / 11);
+        } else if (userAnswers[i]) {
+          // Highlight wrong
+          btns.forEach(b => {
+            if (b.classList.contains('selected') && !b.innerText.includes(`(${correct})`)) {
+              b.classList.add('wrong');
+            }
+          });
         }
-      });
-      // 10 Marks total for MCQs
-      const mcqScore = Math.round((correctMCQCount / mcqData.length) * 10 * 10) / 10;
-
-      // Evaluate Section 2: Essay Questions (20 points)
-      // Q1: Discount (6 points) -> expected: 270
-      let essayQ1Score = 0;
-      const ans1 = parseFloat(document.getElementById('essay-ans-1').value.trim());
-      if (ans1 === 270) {
-        essayQ1Score = 6;
-      } else if (ans1 === 30 || ans1 === 27) { // partial for getting discount amount
-        essayQ1Score = 3;
       }
 
-      // Q2: Two numbers (7 points) -> expected: 27 and 45
-      let essayQ2Score = 0;
-      const ans2a = parseFloat(document.getElementById('essay-ans-2a').value.trim());
-      const ans2b = parseFloat(document.getElementById('essay-ans-2b').value.trim());
-      if ((ans2a === 27 && ans2b === 45) || (ans2a === 45 && ans2b === 27)) {
-        essayQ2Score = 7;
-      } else if (ans2a === 27 || ans2b === 45 || ans2a === 9) { // partial
-        essayQ2Score = 3.5;
+      // Evaluate Essay (Total 20 Marks)
+      let essayScore = 0;
+      
+      // Essay 1: Discount 300 - 30 = 270 (6 Marks)
+      const e1 = document.getElementById('ans_e1').value.trim();
+      if (e1.includes('270')) {
+        essayScore += 6;
       }
 
-      // Q3: Venn diagram (7 points)
-      // a) A ∩ C: empty set ∅, phi, {}, فا أو لا يوجد
-      let essayQ3Score = 0;
-      const ans3a = document.getElementById('essay-ans-3a').value.trim().toLowerCase();
-      const ans3b = document.getElementById('essay-ans-3b').value.trim();
-      const ans3c = document.getElementById('essay-ans-3c').value.trim();
-
-      const emptySetKeywords = ['∅', 'phi', '{}', 'خالية', 'المجموعة الخالية', 'فاي', 'لا يوجد', 'صفر'];
-      if (emptySetKeywords.some(kw => ans3a.includes(kw))) {
-        essayQ3Score += 2;
+      // Essay 2: Ratio 5:3 diff 18 => 45 and 27 (7 Marks)
+      const e2 = document.getElementById('ans_e2').value.trim();
+      if ((e2.includes('27') && e2.includes('45'))) {
+        essayScore += 7;
       }
 
-      // b) B ∩ C: {6} or 6 or C
-      if (ans3b.includes('6') || ans3b.toLowerCase().includes('c') || ans3b.includes('س')) {
-        essayQ3Score += 2.5;
+      // Essay 3: Venn Diagram (7 Marks)
+      const v1 = document.getElementById('ans_v1').value.trim().toLowerCase();
+      const v2 = document.getElementById('ans_v2').value.trim().toLowerCase();
+      const v3 = document.getElementById('ans_v3').value.trim();
+
+      if (v1.includes('∅') || v1.includes('فاي') || v1.includes('خالي') || v1.includes('phi') || v1.includes('{}')) {
+        essayScore += 2;
+      }
+      if (v2.includes('6') || v2.includes('c') || v2.includes('ج')) {
+        essayScore += 2.5;
+      }
+      if (v3.includes('2') && v3.includes('3') && v3.includes('4') && v3.includes('5') && v3.includes('6')) {
+        essayScore += 2.5;
       }
 
-      // c) A ∪ C: elements 2, 3, 4, 5, 6
-      if (ans3c.includes('2') && ans3c.includes('3') && ans3c.includes('4') && ans3c.includes('5') && ans3c.includes('6')) {
-        essayQ3Score += 2.5;
-      } else if (ans3c.includes('6')) {
-        essayQ3Score += 1;
+      const totalScore = Math.min(30, Math.round(mcqScore + essayScore));
+
+      // Display Results
+      document.getElementById('results-area').style.display = 'block';
+      document.getElementById('final-score').innerText = totalScore;
+      document.getElementById('student-res-title').innerText = `طالب العلم المتميز: ${name}`;
+
+      let rateText = "";
+      if (totalScore >= 27) {
+        rateText = "ممتاز مرتفع مع مرتبة الشرف 🏆";
+      } else if (totalScore >= 24) {
+        rateText = "جيد جداً مرتفع 🌟";
+      } else if (totalScore >= 18) {
+        rateText = "جيد - أحسنت وبورك فيك 👍";
+      } else {
+        rateText = "يحتاج للمزيد من المراجعة والتدريب 📖";
       }
+      document.getElementById('appreciation').innerText = rateText;
 
-      const totalEssayScore = essayQ1Score + essayQ2Score + essayQ3Score;
-      const grandTotal = Math.min(30, Math.round((mcqScore + totalEssayScore) * 10) / 10);
-      const percentage = Math.round((grandTotal / 30) * 100);
+      // Populate Certificate
+      document.getElementById('certName').innerText = name;
+      document.getElementById('certScoreTag').innerText = `الدرجة المستحقة: ${totalScore} من 30 (${rateText})`;
 
-      state.score = {
-        mcq: mcqScore,
-        essay: totalEssayScore,
-        total: grandTotal,
-        percentage: percentage
-      };
+      // Scroll smoothly to results
+      document.getElementById('results-area').scrollIntoView({ behavior: 'smooth' });
 
-      displayResults();
-    }
-
-    function displayResults() {
-      document.getElementById('view-exam').classList.add('hidden');
-      document.getElementById('view-result').classList.remove('hidden');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-
-      // Trigger Confetti if passed with good mark
-      if (state.score.percentage >= 70 && typeof confetti === 'function') {
+      // Celebration Confetti
+      if (totalScore >= 20 && window.confetti) {
         confetti({
           particleCount: 120,
           spread: 80,
           origin: { y: 0.6 }
         });
       }
-
-      // Update Top Card
-      const finalScoreEl = document.getElementById('final-score');
-      const finalPctEl = document.getElementById('final-percentage');
-      const greetingEl = document.getElementById('result-greeting');
-      const messageEl = document.getElementById('result-message');
-      const iconContainer = document.getElementById('result-icon-container');
-
-      finalScoreEl.innerText = state.score.total;
-      finalPctEl.innerText = `${state.score.percentage}%`;
-      document.getElementById('mcq-score-summary').innerText = `${state.score.mcq} / 10`;
-      document.getElementById('essay-score-summary').innerText = `${state.score.essay} / 20`;
-
-      if (state.score.percentage >= 85) {
-        greetingEl.innerText = `عاش يا بطل! أداء متميز ومبهر يا ${state.student.name}`;
-        messageEl.innerText = `شهادة تقديرك الذهبية المعتمدة من أ/ عبدالرحيم العربي جاهزة الآن للتكريم والطباعة!`;
-        iconContainer.className = "w-20 h-20 mx-auto rounded-full flex items-center justify-center text-4xl shadow-inner bg-emerald-100 text-emerald-600";
-        iconContainer.innerHTML = '<i class="fa-solid fa-trophy"></i>';
-      } else if (state.score.percentage >= 60) {
-        greetingEl.innerText = `أحسنت يا ${state.student.name}، بداية جيدة جداً!`;
-        messageEl.innerText = `حققت نتيجة طيبة، وراجع الخطوات النموذجية بالأسفل لتتفادى أي خطأ في امتحان نصف العام.`;
-        iconContainer.className = "w-20 h-20 mx-auto rounded-full flex items-center justify-center text-4xl shadow-inner bg-blue-100 text-blue-600";
-        iconContainer.innerHTML = '<i class="fa-solid fa-star"></i>';
-      } else {
-        greetingEl.innerText = `حاول مرة أخرى يا ${state.student.name}، النجاح يحتاج تدريب!`;
-        messageEl.innerText = `راجع القوانين والتمارين المحلولة بالأسفل بدقة ثم أعد المحاولة لتصل للدرجة النهائية.`;
-        iconContainer.className = "w-20 h-20 mx-auto rounded-full flex items-center justify-center text-4xl shadow-inner bg-amber-100 text-brand-orange";
-        iconContainer.innerHTML = '<i class="fa-solid fa-book-open-reader"></i>';
-      }
-
-      // Render Detailed Solutions Review
-      const reviewContainer = document.getElementById('detailed-review-container');
-      reviewContainer.innerHTML = '';
-
-      // MCQs Review
-      const mcqHeader = document.createElement('h4');
-      mcqHeader.className = "font-black text-brand-navy text-lg border-r-4 border-brand-orange pr-3 my-4";
-      mcqHeader.innerText = "أولاً: مراجعة أسئلة الاختيار من متعدد (السؤال الأول):";
-      reviewContainer.appendChild(mcqHeader);
-
-      mcqData.forEach((q, idx) => {
-        const studentChoice = state.mcqAnswers[q.id] || "لم يتم الاختيار";
-        const isCorrect = studentChoice === q.correct;
-
-        const card = document.createElement('div');
-        card.className = `p-4 rounded-2xl border-2 transition ${isCorrect ? 'border-emerald-200 bg-emerald-50/40' : 'border-rose-200 bg-rose-50/40'}`;
-        card.innerHTML = `
-          <div class="flex items-center justify-between gap-2 mb-2">
-            <span class="text-xs font-bold px-2 py-1 rounded-md ${isCorrect ? 'bg-emerald-600 text-white' : 'bg-rose-600 text-white'}">
-              ${isCorrect ? '✓ إجابة صحيحة' : '✗ إجابة غير صحيحة'}
-            </span>
-            <span class="text-xs font-bold text-slate-500">سؤال (${idx + 1})</span>
-          </div>
-          <div class="text-slate-800 font-bold text-sm md:text-base mb-3 leading-relaxed">
-            ${q.textHtml}
-          </div>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs md:text-sm font-semibold">
-            <div class="p-2 rounded-lg ${isCorrect ? 'bg-emerald-100 text-emerald-900' : 'bg-rose-100 text-rose-900'}">
-              إجابتك: <span class="font-bold">(${studentChoice})</span>
-            </div>
-            <div class="p-2 rounded-lg bg-white border border-slate-200 text-slate-800">
-              الإجابة النموذجية: <span class="font-bold text-brand-navy">(${q.correct}) ${q.correctVal}</span>
-            </div>
-          </div>
-          <p class="text-xs text-slate-600 mt-2.5 bg-white/70 p-2.5 rounded-lg border border-slate-200/80">
-            <strong class="text-brand-orange">الشرح الرياضي:</strong> ${q.explanation}
-          </p>
-        `;
-        reviewContainer.appendChild(card);
-      });
-
-      // Essay Questions Review
-      const essayHeader = document.createElement('h4');
-      essayHeader.className = "font-black text-brand-navy text-lg border-r-4 border-sky-600 pr-3 mt-8 mb-4";
-      essayHeader.innerText = "ثانياً: نموذج إجابة الأسئلة المقالية (الورقة الثانية):";
-      reviewContainer.appendChild(essayHeader);
-
-      const essayReviewContent = `
-        <div class="space-y-4">
-          <!-- Essay Q1 Review -->
-          <div class="p-5 rounded-2xl border border-slate-200 bg-slate-50 space-y-2">
-            <p class="font-bold text-slate-800 text-sm md:text-base">(1) نسبة الخصم 10% على قميص سعره 300 جنيه:</p>
-            <div class="bg-white p-3 rounded-xl border text-xs md:text-sm text-slate-700 space-y-1">
-              <p>• <strong>قيمة الخصم</strong> = 300 × (10 ÷ 100) = <span class="text-brand-orange font-bold">30 جنيهاً</span>.</p>
-              <p>• <strong>ثمن الشراء بعد الخصم</strong> = 300 - 30 = <span class="text-emerald-600 font-black text-base">270 جنيهاً</span>.</p>
-            </div>
-          </div>
-
-          <!-- Essay Q2 Review -->
-          <div class="p-5 rounded-2xl border border-slate-200 bg-slate-50 space-y-2">
-            <p class="font-bold text-slate-800 text-sm md:text-base">(2) عددان النسبة بينهما 3 : 5 والفرق بينهما 18:</p>
-            <div class="bg-white p-3 rounded-xl border text-xs md:text-sm text-slate-700 space-y-1">
-              <p>• الفرق بين الأجزاء = 5 - 3 = 2 جزء.</p>
-              <p>• قيمة الجزء الواحد = 18 ÷ 2 = <span class="text-brand-orange font-bold">9</span>.</p>
-              <p>• <strong>العدد الأصغر</strong> = 3 × 9 = <span class="text-brand-navy font-black">27</span>.</p>
-              <p>• <strong>العدد الأكبر</strong> = 5 × 9 = <span class="text-brand-navy font-black">45</span>.</p>
-            </div>
-          </div>
-
-          <!-- Essay Q3 Review -->
-          <div class="p-5 rounded-2xl border border-slate-200 bg-slate-50 space-y-2">
-            <p class="font-bold text-slate-800 text-sm md:text-base">(3) إجابات شكل فِن (المجموعات A, B, C):</p>
-            <div class="bg-white p-3 rounded-xl border text-xs md:text-sm text-slate-700 space-y-2">
-              <p>① <strong>A ∩ C</strong> = <span class="text-sky-600 font-bold">∅ (المجموعة الخالية)</span> لأن الدائرة C تقع داخل B ولا تشترك مع A في أي عنصر.</p>
-              <p>② <strong>B ∩ C</strong> = <span class="text-emerald-600 font-bold">{ 6 }</span> (أو المجموعة C نفسها لأن C ⊂ B).</p>
-              <p>③ <strong>A ∪ C</strong> = <span class="text-indigo-600 font-bold">{ 2 , 3 , 4 , 5 , 6 }</span> (جميع عناصر A مضافاً إليها عناصر C).</p>
-            </div>
-          </div>
-        </div>
-      `;
-      reviewContainer.insertAdjacentHTML('beforeend', essayReviewContent);
-    }
-
-    function openCertificateModal() {
-      // Update Certificate text elements
-      document.getElementById('cert-student-name').innerText = state.student.name || "طالب متميز";
-      document.getElementById('cert-student-class').innerText = state.student.className || "الصف الأول الإعدادي";
-      document.getElementById('cert-seat-no').innerText = state.student.seatNumber || "—";
-
-      let gradeTitle = "جيد";
-      if (state.score.percentage >= 90) gradeTitle = "ممتاز مرتفع مع مرتبة الشرف";
-      else if (state.score.percentage >= 80) gradeTitle = "ممتاز";
-      else if (state.score.percentage >= 70) gradeTitle = "جيد جداً";
-      else if (state.score.percentage >= 50) gradeTitle = "ناجح";
-
-      document.getElementById('cert-score-text').innerText = `${state.score.total} من 30 (${gradeTitle})`;
-
-      document.getElementById('certificate-modal').classList.remove('hidden');
-    }
-
-    function closeCertificateModal() {
-      document.getElementById('certificate-modal').classList.add('hidden');
-    }
-
-    function restartExam() {
-      state.mcqAnswers = {};
-      state.score = { mcq: 0, essay: 0, total: 0, percentage: 0 };
-      
-      // Reset inputs
-      document.getElementById('essay-ans-1').value = '';
-      document.getElementById('essay-steps-1').value = '';
-      document.getElementById('essay-ans-2a').value = '';
-      document.getElementById('essay-ans-2b').value = '';
-      document.getElementById('essay-steps-2').value = '';
-      document.getElementById('essay-ans-3a').value = '';
-      document.getElementById('essay-ans-3b').value = '';
-      document.getElementById('essay-ans-3c').value = '';
-
-      document.getElementById('view-result').classList.add('hidden');
-      document.getElementById('view-intro').classList.remove('hidden');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   </script>
 </body>
